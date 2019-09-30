@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var Product = require('../models/products');
+var Cart = require('../models/cart');
 
 
 /* GET home page. */
@@ -70,6 +71,21 @@ router.get('/delete/:_id',async(req,res,next)=>{
 router.get('/deleteAllProduct',async(req,res,next)=>{
   const response = await Product.deleteMany()
   res.redirect('/admin')
+})
+
+
+router.get('/add-to-cart/:_id',(req,res,next)=>{
+  const productID = req.params._id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  Product.findById(productID,(err,product)=>{
+    if(err){
+      res.redirect('/');
+    }
+    cart.add(product, product.id);
+    req.session.cart = cart;
+    res.redirect('/');
+  })  
 })
 
 module.exports = router;

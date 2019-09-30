@@ -4,56 +4,57 @@ var Cart = require('../models/cart');
 
 
 /* GET home page. */
-router.get('/', async (req, res, next)=> {
+router.get('/', async (req, res, next) => {
   const response = await Product.find();
-  res.render('shop/index', { title: 'DreamWorld' ,response});
+  res.render('shop/index', { title: 'DreamWorld', response });
 });
 
-router.post('/',async (req,res,next)=>{
-  const { productImageUrl,name,desc,price } = req.body;
-  
+router.post('/', async (req, res, next) => {
+  const { productImageUrl, name, desc, price } = req.body;
+
   const response = await new Product({
-    imagePath:productImageUrl,
+    imagePath: productImageUrl,
     name,
     desc,
     price,
-  }).save();  
+  }).save();
   console.log(response);
   res.redirect('/admin')
 });
 
 //  Update Route
-router.post('/admin',async (req,res,next)=>{
-  const { _id,updatedImagePath,updatedName,updatedDesc,updatedPrice } = req.body;
+router.post('/admin', async (req, res, next) => {
+  const { _id, updatedImagePath, updatedName, updatedDesc, updatedPrice } = req.body;
   const response = await Product.update(
-      {_id},
-      {$set:
-        {
-          imagePath:updatedImagePath,
-          name:updatedName,
-          desc:updatedDesc,
-          price:updatedPrice
-        }
+    { _id },
+    {
+      $set:
+      {
+        imagePath: updatedImagePath,
+        name: updatedName,
+        desc: updatedDesc,
+        price: updatedPrice
       }
-    )
-    console.log(response)
+    }
+  )
+  console.log(response)
   res.redirect('/admin');
 })
 
-router.get('/admin',async(req,res,next)=>{
+router.get('/admin', async (req, res, next) => {
   const allProducts = await Product.find();
   const sizeOfAllProducts = allProducts.length;
-  if(sizeOfAllProducts > 0){
+  if (sizeOfAllProducts > 0) {
     result = true;
-  }else{
+  } else {
     result = false;
   }
-  res.render('admin',{title: 'Admin-DreamWorld',allProducts,result})
+  res.render('admin', { title: 'Admin-DreamWorld', allProducts, result })
 })
 
-router.get('/delete/:_id',async(req,res,next)=>{
-  const {_id} = req.params;
-  const response = await Product.findOneAndDelete({_id});
+router.get('/delete/:_id', async (req, res, next) => {
+  const { _id } = req.params;
+  const response = await Product.findOneAndDelete({ _id });
   console.log(response);
   res.redirect('/admin')
 })
@@ -68,24 +69,23 @@ router.get('/delete/:_id',async(req,res,next)=>{
 //   res.redirect('/');
 // });
 
-router.get('/deleteAllProduct',async(req,res,next)=>{
+router.get('/deleteAllProduct', async (req, res, next) => {
   const response = await Product.deleteMany()
   res.redirect('/admin')
 })
 
 
-router.get('/add-to-cart/:_id',(req,res,next)=>{
+router.get('/add-to-cart/:_id', (req, res, next) => {
   const productID = req.params._id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
-
-  Product.findById(productID,(err,product)=>{
-    if(err){
+  Product.findById(productID, (err, product) => {
+    if (err) {
       res.redirect('/');
     }
-    cart.add(product, product.id);
+    cart.add(product, product._id);
     req.session.cart = cart;
     res.redirect('/');
-  })  
+  })
 })
 
 module.exports = router;

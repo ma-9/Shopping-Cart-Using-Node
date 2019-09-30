@@ -1,0 +1,199 @@
+<hr color="black">
+
+
+
+
+
+
+
+
+<div class="d-flex justify-content-center">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-add-tab" data-toggle="pill" href="#addProduct" role="tab" aria-controls="pills-home" aria-selected="true">Add New Product</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-update-tab" data-toggle="pill" href="#updateProduct" role="tab" aria-controls="pills-profile" aria-selected="false">Update Product</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-delete-tab" data-toggle="pill" href="#deleteProduct" role="tab" aria-controls="pills-contact" aria-selected="false">Delete Product</a>
+    </li>
+    </ul>
+</div>
+<div class="tab-content" id="pills-tabContent">
+    {{!-- ADD PRODUCT CODE --}}    
+    <div class="tab-pane fade show active" id="addProduct" role="tabpanel" aria-labelledby="pills-add-tab">
+        <h1 class="display-3">Add Product</h1>
+        <br>
+        <form action="/" method="post">
+            <div class="form-group row">
+                <label for="imagePath" class="col-sm-2 col-form-label">Upload Product Image</label>
+                <div class="col-sm-10">
+                <input type='file' name="imagePath"  id="imagePath" required>
+                <p id="uploadLabel"></p>
+                <input type="hidden" id="productImageUrl" name="productImageUrl" />
+                <img src="" id="imgTag" alt=" ">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Product Title</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" id="name" placeholder="Product Title/Name" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="desc" class="col-sm-2 col-form-label">Product Description</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" name="desc" id="desc" placeholder="Product Description" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="price" class="col-sm-2 col-form-label">Product Price</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" name="price" id="price" placeholder="Product Price" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10">
+                <button class="btn btn-success" disabled id="add-product" type="submit">Add Product</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {{!-- UPDATE PRODUCT CODE --}}
+    <div class="tab-pane fade" id="updateProduct" role="tabpanel" aria-labelledby="pills-update-tab">
+        <h1 class="display-3">Update Product</h1>
+        <br>
+        <table class="ProductTable">
+            {{#if result}}
+                <thead>
+                    <td>Product Image Path</td>
+                    <td>Product Name</td>
+                    <td>Product Description</td>
+                    <td>Product Price</td>
+                    <td>Click to Update</td>
+                </thead>
+                <tbody>
+                    {{#each allProducts}}
+                        {{!-- <tr>
+                            <td>{{this._id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.price}}</td>
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#updateModal">
+                                Click to Update
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="updateModalLabel">Update Product</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            <div class="form-group row">
+                                                <label for="imagePath" class="col-sm-2 col-form-label">Product Image Path</label>
+                                                <div class="col-sm-10">
+                                                <input type="text" name="updatedImagePath" class="form-control" id="updatedImagePath"  value="{{this.imagePath}}" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="name" class="col-sm-2 col-form-label">Product Title</label>
+                                                <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="updatedName" id="updatedName" value="{{this.name}}" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="desc" class="col-sm-2 col-form-label">Product Description</label>
+                                                <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="updatedDesc" id="updatedDesc" value="{{this.desc}}" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="price" class="col-sm-2 col-form-label">Product Price</label>
+                                                <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="updatedPrice" id="updatedPrice" value="{{this.price}}" required>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" value="{{this._id}}" name="_id">
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success">
+                                                    Save Changes
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                                </div>
+                            </td>
+                        </tr> --}}
+                        <form method="post">
+                        <tr>
+                            <td>
+                                <input type="text" name="updatedImagePath" id="updatedImagePath" value="{{this.imagePath}}">
+                            </td>
+                            <td>
+                                <input type="text" name="updatedName" id="updatedName" value="{{this.name}}">
+                            </td>
+                            <td>
+                                <input type="text" name="updatedDesc" id="updatedDesc" value="{{this.desc}}">
+                            </td>
+                            <td>
+                                <input type="text" name="updatedPrice" id="updatedPrice" value="{{this.price}}">
+                            </td>
+                            <td>
+                                <input type="hidden" name="_id" value="{{this._id}}">
+                                <input type="submit" value="Click to Update" class="btn btn-success">
+                            </td>
+                        </tr>
+                        </form>
+                    {{/each}}
+                </tbody>
+            {{else}}
+                <h2>No Products Found</h2>
+            {{/if}}
+        </table>
+    </div>
+
+    {{!-- DELETE PRODUCT CODE --}}
+    <div class="tab-pane fade" id="deleteProduct" role="tabpanel" aria-labelledby="pills-delete-tab">
+        <h1 class="display-3">Delete Product</h1>
+        <br>
+        <form action="/deleteAllProduct" method="GET" onsubmit="return validate()">
+            <button class="float-right btn btn-warning"  type="submit">Delete All Product</button>
+        </form>
+
+        <table class="ProductTable">
+            {{#if result}}
+                <thead>
+                    <td>Product ID</td>
+                    <td>Product Name</td>
+                    <td>Product Price</td>
+                    <td>Click to Delete</td>
+                </thead>
+            {{else}}
+                <h2>No Products Found</h2>
+            {{/if}}
+            <tbody>
+                {{#each allProducts}}
+                    <tr>
+                        <td>{{this._id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.price}}</td>
+                        <td><a href="/delete/{{this._id}}" class="btn btn-danger float-right">Delete Product</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

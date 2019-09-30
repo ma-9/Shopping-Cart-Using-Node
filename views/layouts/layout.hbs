@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    {{!-- bootstrap css CDN --}}
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    
+    {{!-- Customized CSS --}}
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    {{!-- Font Awesome Link --}}
+    <script src="https://kit.fontawesome.com/8b5036eb06.js"></script>
+
+  </head>
+  <body>
+    {{> header}}
+<div class="container">
+    {{{body}}}
+</div>
+  
+    
+
+
+    {{!-- JQuery and Popper.js File imported here --}}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    {{!-- Compiled Javascript --}}
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+
+    {{!-- Firebase Code Start --}}
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyACMT9O1r2x8XuRua453TcjQDh4UPjA8zU",
+        authDomain: "e-commerce-dreamworld.firebaseapp.com",
+        databaseURL: "https://e-commerce-dreamworld.firebaseio.com",
+        projectId: "e-commerce-dreamworld",
+        storageBucket: "e-commerce-dreamworld.appspot.com",
+        messagingSenderId: "370006765206",
+        appId: "1:370006765206:web:40d570163ba1037e391cb7"
+      }
+
+      // Firebase initialization
+      firebase.initializeApp(firebaseConfig);
+      
+      // setting storage to firebase storage
+      var storage = firebase.storage();
+
+      // Getting Images 
+      const image = document.getElementById('imagePath');
+      const imageShowcase = document.getElementById('imgTag');
+      const uploadLabel = document.getElementById('uploadLabel');
+      const submitButton = document.getElementById('add-product');
+
+      // variable for returning Uploaded Image Url
+      const productImageUrl = document.getElementById('productImageUrl');
+
+      // FileUpload Function
+      function handleFileUploadChange(e){
+        uploadLabel.innerHTML =  'Uploading...'
+        selectedFile = e.target.files[0];
+        storage.ref().child(selectedFile.name).put(selectedFile)
+          .then(data => {
+            return data.ref.getDownloadURL();
+          })
+          .then(url => {
+            uploadLabel.innerHTML = 'Uploaded';
+            imageShowcase.src = url;
+            productImageUrl.value = url;
+            submitButton.disabled = false;
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }
+
+      // Performing File Upload
+      document.querySelector('#imagePath').addEventListener('change', handleFileUploadChange);
+
+    </script>
+    {{!-- Firebase Code Ends --}}
+  </body>
+</html>

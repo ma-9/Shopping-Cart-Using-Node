@@ -1,0 +1,103 @@
+/* Navbar Brand CSS Start */
+.navbar .navbar-brand{
+    color: grey;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+    /* Card CSS Start */
+
+.card .card-img-top{
+    height: 15rem;
+}
+.card .price{
+    color: rgb(56, 48, 48);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+    /* Delete Product Table */
+.ProductTable{
+    border: .1rem solid black;
+}
+.ProductTable td {
+    border: .1rem solid black;
+    padding: 1rem;
+}
+.ProductTable thead td{
+    font-weight: 600!important;
+}
+
+    /* For Changing Nav-pill bg color */
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #673ab7;
+}
+
+    /* Link Text decoration None */
+.textNone{
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+.textNone:hover{
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+.textNone:visited{
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+#imgTag{
+    height: 8rem;
+    width: 8rem;
+    alt: inherit;
+}
+.centerContainer{ 
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.FormCSS form input,
+.FormCSS form button{
+    padding: .5rem;
+    margin: .5rem;
+}
+
+    /* Snackbar CSS */
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: rgb(209, 13, 13); /* danger background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show{
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 1s;
+    animation: fadein 1s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}

@@ -82,10 +82,19 @@ router.get('/add-to-cart/:_id',async(req,res,next)=>{
     if(err){
       res.redirect('/');
     }
-    cart.add(product, product._id);
+    cart.add(product, product._id,product.name);
     req.session.cart = cart;
+    console.log(req.session.cart);
     res.redirect('/');
   })  
+})
+
+router.get('/shopping-cart',(req,res,next)=>{
+  if (!req.session.cart) {
+    return res.render('shop/shopping-cart',{products: null});
+  }
+  var cart = new Cart(req.session.cart);
+  res.render('shop/shopping-cart',{products: cart.generateArray(),totalPrice: cart.totalPrice});
 })
 
 module.exports = router;

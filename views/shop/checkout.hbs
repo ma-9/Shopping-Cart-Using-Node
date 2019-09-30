@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-sm-6 col-md-4 offset-md-4 offset-sm-3">
+        <h1>Checkout</h1>
+        <h5>Your Total: ₹ {{total}}</h5>
+        <form action="/" method="post" id="checkout-form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="float-right" type="text" name="name" id="name" required id="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input class="float-right" type="text" name="address" id="address" required id="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="card-name">Card Holder Name</label>
+                        <input class="float-right" type="text" name="card-name" id="card-name" required id="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="card-number">Credit Card Number</label>
+                        <input class="float-right" type="text" name="card-number" id="card-number" required id="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="card-expiry-month">Card Expiry Month</label>
+                                <input type="text" name="card-expiry-month" id="card-expiry-month" required id="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="card-expiry-year">Card Expiry Year</label>
+                                <input class="float-right" type="text" name="card-expiry-year" id="card-expiry-year" required id="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="card-cvv">Credit Card CVV</label>
+                        <input class="float-right" type="text" name="card-cvv" id="card-cvv" required id="form-control">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Buy Now</button>
+        </form>
+    </div>
+</div>

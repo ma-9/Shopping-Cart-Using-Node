@@ -10,6 +10,7 @@ var expressSession = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
+var mongoStore = require('connect-mongo')(expressSession);
 
 var databaseURL = "mongodb+srv://admin:admin123@protrasys-admin-raot8.mongodb.net/test?retryWrites=true&w=majority";
 // var databaseURL = "mongodb://admin:admin123@ds127938.mlab.com:27938/doctorai_admin";
@@ -36,7 +37,9 @@ app.use(cookieParser());
 app.use(expressSession({
   secret: "UsersSignup",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new mongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: {maxAge: 100 * 60 * 1000}
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -45,6 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next){
   res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
   next(); 
 });
 

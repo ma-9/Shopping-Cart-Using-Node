@@ -74,15 +74,15 @@ router.get('/deleteAllProduct',async(req,res,next)=>{
 })
 
 
-router.get('/add-to-cart/:_id',(req,res,next)=>{
+router.get('/add-to-cart/:_id',async(req,res,next)=>{
   const productID = req.params._id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-  Product.findById(productID,(err,product)=>{
+  await Product.findById(productID,(err,product)=>{
     if(err){
       res.redirect('/');
     }
-    cart.add(product, product.id);
+    cart.add(product, product._id);
     req.session.cart = cart;
     res.redirect('/');
   })  

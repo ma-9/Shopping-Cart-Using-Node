@@ -99,7 +99,7 @@ router.get('/shopping-cart',(req,res,next)=>{
   res.render('shop/shopping-cart',{products: cart.generateArray(),totalPrice: cart.totalPrice});
 });
 
-router.get('/checkout',(req,res,next)=>{
+router.get('/checkout', isLoggedIn ,(req,res,next)=>{
   if (!req.session.cart) {
     res.redirect('/shopping-cart');
   }
@@ -108,7 +108,7 @@ router.get('/checkout',(req,res,next)=>{
   res.render('shop/checkout',{total: cart.totalPrice, errMsg , noError: !errMsg})
 });
 
-router.post('/checkout',(req,res,next)=>{
+router.post('/checkout', isLoggedIn ,(req,res,next)=>{
   if (!req.session.cart) {
     res.redirect('/shopping-cart');
   }
@@ -151,3 +151,11 @@ router.post('/checkout',(req,res,next)=>{
 })
 
 module.exports = router;
+
+
+function isLoggedIn(req,res,next){
+  if(req.isAuthenticated()){
+      return next();
+  }
+  res.redirect('/users/signin');
+}

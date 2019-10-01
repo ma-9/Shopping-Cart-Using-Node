@@ -3,18 +3,15 @@
         <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
             <ul class="list-group">
                 {{# each products}}
-                    <span class="badge float-right badge-success">{{this.qty}}</span>
                      <li class="list-group-item">
                         <strong>{{ this.title }}</strong>
                         <span class="badge badge-info">$ {{this.price}}</span>
-                        <div class="btn-group float-right">
-                            <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" type="button">
-                                Action <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="/reduce/{{ this.item._id }}">Reduce by 1</a></li>
-                                <li><a href="/removeAll/{{ this.item._id }}">Remove All</a></li>
-                            </ul>
+                        <div class="float-right">
+                            <h5>
+                                <a href="/reduce/{{ this.item._id }}"><i class="fas fa-minus-square"></i></a>
+                                <i class="badge badge-primary">{{this.qty}}</i>
+                                <a href="/addByOne/{{ this.item._id }}"><i class="fas fa-plus-square"></i></a>
+                            </h5>                            
                         </div>
                     </li>
                 {{/each}}

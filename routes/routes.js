@@ -102,14 +102,14 @@ router.get('/reduce/:id', (req,res,next)=>{
   res.redirect('/shopping-cart');
 });
 
-router.get('/removeAll/:id',(req,res,next)=>{
+router.get('/addByOne/:id', (req,res,next)=>{
   const productID = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-  cart.removeAllItem(productID);
+  cart.addByOne(productID);
   req.session.cart = cart;
   res.redirect('/shopping-cart');
-})
+});
 
 router.get('/shopping-cart', (req, res, next) => {
   if (!req.session.cart) {

@@ -91,6 +91,24 @@ router.get('/add-to-cart/:_id', async (req, res, next) => {
     console.log(req.session.cart);
     res.redirect('/');
   })
+});
+
+router.get('/reduce/:id', (req,res,next)=>{
+  const productID = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  cart.reduceByOne(productID);
+  req.session.cart = cart;
+  res.redirect('/shopping-cart');
+});
+
+router.get('/removeAll/:id',(req,res,next)=>{
+  const productID = req.params.id;
+  var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+  cart.removeAllItem(productID);
+  req.session.cart = cart;
+  res.redirect('/shopping-cart');
 })
 
 router.get('/shopping-cart', (req, res, next) => {

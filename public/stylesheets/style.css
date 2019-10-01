@@ -11,7 +11,7 @@
 }
 .card .price{
     color: rgb(56, 48, 48);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
@@ -83,13 +83,14 @@
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show{
+#snackbar .show{
     visibility: visible; /* Show the snackbar */
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
     However, delay the fade out process for 2.5 seconds */
     -webkit-animation: fadein 1s;
     animation: fadein 1s;
 }
+
 
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
@@ -101,3 +102,4 @@
     from {bottom: 0; opacity: 0;}
     to {bottom: 30px; opacity: 1;}
 }
+

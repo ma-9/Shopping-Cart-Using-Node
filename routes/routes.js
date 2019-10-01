@@ -5,8 +5,9 @@ var Cart = require('../models/cart');
 
 /* GET home page. */
 router.get('/', async (req, res, next)=> {
+  var successMsg = req.flash('success')[0];
   const response = await Product.find();
-  res.render('shop/index', { title: 'DreamWorld' ,response});
+  res.render('shop/index', { title: 'DreamWorld' ,response, successMsg, noMessage: !successMsg});
 });
 
 router.post('/',async (req,res,next)=>{
@@ -102,7 +103,35 @@ router.get('/checkout',(req,res,next)=>{
     res.redirect('/shopping-cart');
   }
   var cart = new Cart(req.session.cart);
-  res.render('shop/checkout',{total: cart.totalPrice})
+  var errMsg = req.flash('error')[0];
+  res.render('shop/checkout',{total: cart.totalPrice, errMsg , noError: !errMsg})
 });
+
+router.post('/checkout',(req,res,next)=>{
+  if (!req.session.cart) {
+    res.redirect('/shopping-cart');
+  }
+  var cart = new Cart(req.session.cart);
+
+  const stripe = require("stripe")("sk_test_bqcGKKek5UPsKM7tCXXg0YaH00fzCaJ19y");
+
+  stripe.charges.create({
+    amount: cart.totalPrice * 100,
+    currency: "usd",
+    source: req.body.stripeToken, // obtained with Stripe.js
+    description: "Test Charge"
+  }, function(err, charge) {
+    // asynchronously called
+    if (err) {
+      console.log(' STRIPE ERROR');
+      req.flash('error',err.message );
+      return res.redirect('/checkout');
+    }
+    req.flash('success','Successfully bought Product !');
+    console.log(' STRIPE SUCCESS');
+    req.session.cart = null;
+    res.redirect('/');   
+  });
+})
 
 module.exports = router;

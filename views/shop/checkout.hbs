@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-sm-6 col-md-4 offset-md-4 offset-sm-3">
         <h1>Checkout</h1>
-        <h5>Your Total: ₹ {{total}}</h5>
-        <div id="charge-error" class="alert alert-danger d-none">
-
+        <h5>Your Total: $ {{total}}</h5>
+        <div id="charge-error" class="alert alert-danger {{#if noError}}d-none{{/if}}">
+            {{ errMsg }}
         </div>
-        <form action="" method="post" id="checkout-form">
+        <form action="/checkout" method="post" id="checkout-form">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">

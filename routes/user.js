@@ -2,6 +2,8 @@ var router = require('express').Router();
 var Product = require('../models/products');
 var csrf = require('csurf');
 var passport = require('passport');
+var Orders = require('../models/orders');
+var Cart = require('../models/cart');
 
 
 var csrfProtection = csrf();
@@ -9,7 +11,18 @@ router.use(csrfProtection);
 
 
 router.get('/profile',isLoggedIn,(req,res,next)=>{
-    res.render('users/profile')
+    Orders.find({user: req.user}, (err,orders)=>{
+        if (err) {
+            return console.log(err);
+        }
+        var cart;
+        var userName = req.user.email;
+        orders.forEach((order)=>{
+            cart = new Cart(order.cart);
+            order.items = cart.generateArray();
+        });
+        res.render('users/profile',{ orders, userName });
+    })
 });
 
 router.get('/logout', isLoggedIn, (req,res,next)=>{

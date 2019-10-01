@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var Product = require('../models/products');
 var Cart = require('../models/cart');
+var Orders = require('../models/orders');
 
 
 /* GET home page. */
@@ -120,17 +121,32 @@ router.post('/checkout',(req,res,next)=>{
     currency: "usd",
     source: req.body.stripeToken, // obtained with Stripe.js
     description: "Test Charge"
-  }, function(err, charge) {
+  },function(err, charge) {
     // asynchronously called
     if (err) {
       console.log(' STRIPE ERROR');
       req.flash('error',err.message );
       return res.redirect('/checkout');
     }
-    req.flash('success','Successfully bought Product !');
-    console.log(' STRIPE SUCCESS');
-    req.session.cart = null;
-    res.redirect('/');   
+
+    const response = new Orders({
+      user: req.user,
+      cart,
+      address: req.body.address,
+      name: req.body.name,
+      paymentId: charge.id
+    }).save((err,result)=>{
+      if (err) {
+          console.log("Database Saving Error : "+err);
+          res.redirect('/checkout');
+      }
+      req.flash('success','Successfully bought Product !');
+      console.log(' STRIPE SUCCESS');
+      req.session.cart = null;
+      res.redirect('/');  
+    }); 
+
+    console.log(response);
   });
 })
 

@@ -9,18 +9,17 @@
 <div class="row">
     {{# each response}}
         <div class="col-sm-6 col-md-4 col-lg-3">
-        <div id="productCard" class="card">
-            <img class="card-img-top img-responsive" src={{this.imagePath}} alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{this.name}}</h5>
-                <p class="card-text">{{ this.desc }}</p>
-                <div>
-                    <div class="float-left price">$ {{ this.price }}</div>
-                    <a href="/add-to-cart/{{this._id}}" class="btn btn-success float-right">Add to Cart</a>
-                    
+            <div id="productCard" class="card">
+                <img class="card-img-top img-responsive" src={{this.imagePath}} alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text">{{ this.desc }}</p>
+                    <div>
+                        <div class="float-left price">$ {{ this.price }}</div>
+                        <a href="/add-to-cart/{{this._id}}" class="btn btn-success float-right">Add to Cart</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> 
+        </div> 
     {{/ each}}
 </div>

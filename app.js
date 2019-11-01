@@ -73,7 +73,7 @@ app.use(function(err, req, res, next) {
 });
 
 // Mongoose Connection
-mongoose.connect(databaseURL,{useNewUrlParser: true},(err)=>{
+mongoose.connect(databaseURL,{useUnifiedTopology:true,useNewUrlParser: true},(err)=>{
   if(err){
     console.log("Error is Occured ! + "+err)
   }else{

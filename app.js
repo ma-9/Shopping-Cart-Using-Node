@@ -11,8 +11,9 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
 var mongoStore = require('connect-mongo')(expressSession);
+var { username,password } = require('./config/config');
 
-var databaseURL = "mongodb+srv://admin:admin123@protrasys-admin-raot8.mongodb.net/test?retryWrites=true&w=majority";
+var databaseURL = "mongodb+srv://"+ username +":"+ password +"@protrasys-admin-raot8.mongodb.net/test?retryWrites=true&w=majority";
 // var databaseURL = "mongodb://admin:admin123@ds127938.mlab.com:27938/doctorai_admin";
 
 

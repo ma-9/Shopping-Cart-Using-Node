@@ -60,7 +60,7 @@ router.post('/signup',passport.authenticate('local-signup',{
 router.get('/signin',(req,res,next)=>{
     var messages = req.flash('error');
     res.render('users/signin',{
-        title: 'Sign Up', 
+        title: 'Sign In', 
         csrfToken: req.csrfToken(),
         messages: messages,
         hasError: messages.length>0

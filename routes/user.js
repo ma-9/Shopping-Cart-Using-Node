@@ -39,7 +39,7 @@ router.get("/signup", (req, res, next) => {
     title: "Sign Up",
     csrfToken: req.csrfToken(),
     hasError: messages.length > 0,
-    messages: messages,
+    messages: messages
   });
 });
 

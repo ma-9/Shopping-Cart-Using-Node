@@ -16,14 +16,17 @@ router.get("/", async (req, res, next) => {
     response,
     successMsg,
     noMessage: !successMsg,
+    homePage:true,
     matched: url === "/" ? true : false
   });
 });
 
 router.get("/search", async (req, res, next) => {
+  let carouselShowcase;
   const { search } = req.query;
   let response;
-  if(search !== undefined){
+  if(search !== undefined && search !== ""){
+    carouselShowcase = false;
     response = await Product.find({
       $or: [
         { name: { $regex: search, $options: 'i' } },
@@ -31,11 +34,14 @@ router.get("/search", async (req, res, next) => {
       ]
     })
   }else{
+    carouselShowcase = true;
     response = await Product.find();
   }
   res.render("shop/index", {
     title: "DreamWorld",
     response,
+    homePage:carouselShowcase,
+    noMessage:true,
     matched: true
   });
 });

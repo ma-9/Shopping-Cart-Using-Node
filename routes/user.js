@@ -59,7 +59,7 @@ router.post(
     }
 
     const output = `
-        <h2 align="center">${req.body.email} -  Your Account is Successfully Activated.</h2></br>
+        <h2 align="center">${req.body.name} -  Your Account is Successfully Activated.</h2></br>
         <center><a href="https://ma9shoppingcart.herokuapp.com/"><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/mailBody%20JPEGFILE.jpg?alt=media&token=73e78909-8fa7-421d-b677-fb87055dca47"></a></center>
     `;
 
@@ -81,7 +81,7 @@ router.post(
     let info = transporter.sendMail({
       from: `dreamworld.bpccs@gmail.com`, // sender address
       to: req.body.email, // list of receivers
-      subject: `Welcome to Dreamworld ${req.body.email}, Buy Products with ❤`, // Subject line
+      subject: `Welcome to Dreamworld ${req.body.name}, Buy Products with ❤`, // Subject line
       html: output // html body
     });
   }

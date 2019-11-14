@@ -23,7 +23,7 @@
 <div class="container">
     {{{body}}}
 </div>
-  
+    {{> footer}}
     
 
 
@@ -36,6 +36,10 @@
     {{!-- Firebase Code Start --}}
     <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
     
+    <script>
+      $('.carousel').carousel()
+    </script>
+
     <script>
       var firebaseConfig = {
         apiKey: "AIzaSyACMT9O1r2x8XuRua453TcjQDh4UPjA8zU",

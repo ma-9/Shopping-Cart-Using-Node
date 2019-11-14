@@ -4,24 +4,47 @@ var Cart = require("../models/cart");
 var Orders = require("../models/orders");
 const { APIKEY } = require("../config/stripe");
 const stripe = require("stripe")(APIKEY);
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
   var successMsg = req.flash("success")[0];
   const response = await Product.find();
+  const url = req.url;
   res.render("shop/index", {
     title: "DreamWorld",
     response,
     successMsg,
-    noMessage: !successMsg
+    noMessage: !successMsg,
+    matched: url === "/" ? true : false
+  });
+});
+
+router.get("/search", async (req, res, next) => {
+  const { search } = req.query;
+  let response;
+  if(search !== undefined){
+    response = await Product.find({
+      $or: [
+        { name: { $regex: search, $options: 'i' } },
+        { desc: { $regex: search, $options: 'i' } }
+      ]
+    })
+  }else{
+    response = await Product.find();
+  }
+  res.render("shop/index", {
+    title: "DreamWorld",
+    response,
+    matched: true
   });
 });
 
 router.post("/subscribe", (req, res, next) => {
   const output = `
-        <h2 align="center">${req.body.subName} -  Your Account is Successfully Activated.</h2></br>
-        <center><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/mailBody%20JPEGFILE.jpg?alt=media&token=73e78909-8fa7-421d-b677-fb87055dca47"></center>
+        <hr>
+        <center><a href="https://ma9shoppingcart.herokuapp.com/"><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/Untitled-1.jpg?alt=media&token=242317b3-5147-4226-88fc-72aad455c0aa"></a></center>
+        <hr>
     `;
 
   // create reusable transporter object using the default SMTP transport
@@ -42,7 +65,7 @@ router.post("/subscribe", (req, res, next) => {
   let info = transporter.sendMail({
     from: `dreamworld.bpccs@gmail.com`, // sender address
     to: req.body.subEmail, // list of receivers
-    subject: `Welcome to Dreamworld ${req.body.subName}, Buy Products with ❤`, // Subject line
+    subject: `Congratulations, You are subscribed to DreamWorld Daily Offers`, // Subject line
     html: output // html body
   });
 

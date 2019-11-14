@@ -1,32 +1,36 @@
-
-    <div class="centerContainer">
-        <img class="img-responsive" style="height: 10rem;" src="/images/Sign Up.svg">
-        <br>
-    </div>
+<div class="centerContainer">
+    <img class="img-responsive" style="height: 10rem;" src="/images/Sign Up.svg">
     <br>
+</div>
+<br>
+<div class="centerContainer">
     {{#if hasError}}
-        {{#each messages}}
-
-            <div id="snackbar" class="show">{{this}}</div>
-        {{/each}}
+    {{#each messages}}
+        <div class="alert alert-danger">{{this}}</div>
+    {{/each}}
     {{/if}}
-    <div class="centerContainer FormCSS">
-        <div class="row">
-            <form method="post">
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                    <input placeholder="Enter Email Address" type="text" name="email" id="email">
-                </div>
+</div>
+<div class="centerContainer FormCSS">
+    <div class="row">
+        <form method="post">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <input placeholder="Enter Your Name" type="text" name="name" id="name">
+            </div>
 
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                    <input placeholder="Enter Password" type="password" name="password" id="password">
-                </div>
-                <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                <div class="col-sm-12 col-md-12 col-lg-12 centerContainer">
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                </div>
-            </form>
-        </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <input placeholder="Enter Email Address" type="text" name="email" id="email">
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <input placeholder="Enter Password" type="password" name="password" id="password">
+            </div>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <div class="col-sm-12 col-md-12 col-lg-12 centerContainer">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+        </form>
     </div>
+</div>
 <div class="centerContainer">
     <p>Already Have an Account <a href="/users/signin">Sign In Instead!</a></p>
 </div>

@@ -4,12 +4,13 @@
         <br>
     </div>
     <br>
-    {{#if hasError}}
+    <div class="centerContainer">
+        {{#if hasError}}
         {{#each messages}}
-
-            <div id="snackbar" class="show">{{this}}</div>
+            <div class="alert alert-danger">{{this}}</div>
         {{/each}}
     {{/if}}
+    </div>
     <div class="centerContainer FormCSS">
         <div class="row">
             <form method="post">

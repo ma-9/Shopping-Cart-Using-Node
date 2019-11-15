@@ -50,17 +50,9 @@ router.post(
     failureFlash: true
   }),
   (req, res, next) => {
-    if (req.session.oldUrl) {
-      var oldUrl = req.session.oldUrl;
-      req.session.oldUrl = null;
-      res.redirect(oldUrl);
-    } else {
-      res.redirect("/users/profile");
-    }
-
     const output = `
-        <h2 align="center">${req.body.name} -  Your Account is Successfully Activated.</h2></br>
-        <center><a href="https://ma9shoppingcart.herokuapp.com/"><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/mailBody%20JPEGFILE.jpg?alt=media&token=73e78909-8fa7-421d-b677-fb87055dca47"></a></center>
+        <center><h2>${req.body.name} -  Your Account is Successfully Activated.</h2></center></br>
+        <center><a href="https://dreamworldbpccs.herokuapp.com/"><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/mailBody%20JPEGFILE.jpg?alt=media&token=73e78909-8fa7-421d-b677-fb87055dca47"></a></center>
     `;
 
     // create reusable transporter object using the default SMTP transport
@@ -69,7 +61,7 @@ router.post(
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
-        user: "dreamworld.bpccs@gmail.com", // DreamWorld Email ID
+        user: "badboysecurities@gmail.com", // DreamWorld Email ID
         pass: "LaW6rXvEguCHB2V" // DreamWorld Password
       },
       tls: {
@@ -77,13 +69,22 @@ router.post(
       }
     });
 
+    let sender = "badboysecurities@gmail.com";
     // send mail with defined transport object
-    let info = transporter.sendMail({
-      from: `dreamworld.bpccs@gmail.com`, // sender address
+    transporter.sendMail({
+      from: `"DreamWorld - A Hope Of Happiness" 👻 <${sender}>`, // sender address
       to: req.body.email, // list of receivers
       subject: `Welcome to Dreamworld ${req.body.name}, Buy Products with ❤`, // Subject line
       html: output // html body
-    });
+    });;
+
+    if (req.session.oldUrl) {
+      var oldUrl = req.session.oldUrl;
+      req.session.oldUrl = null;
+      res.redirect(oldUrl);
+    } else {
+      res.redirect("/users/profile");
+    }
   }
 );
 

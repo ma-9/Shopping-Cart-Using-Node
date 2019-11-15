@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
     response,
     successMsg,
     noMessage: !successMsg,
-    homePage:true,
+    homePage: true,
     matched: url === "/" ? true : false
   });
 });
@@ -25,23 +25,23 @@ router.get("/search", async (req, res, next) => {
   let carouselShowcase;
   const { search } = req.query;
   let response;
-  if(search !== undefined && search !== ""){
+  if (search !== undefined && search !== "") {
     carouselShowcase = false;
     response = await Product.find({
       $or: [
-        { name: { $regex: search, $options: 'i' } },
-        { desc: { $regex: search, $options: 'i' } }
+        { name: { $regex: search, $options: "i" } },
+        { desc: { $regex: search, $options: "i" } }
       ]
-    })
-  }else{
+    });
+  } else {
     carouselShowcase = true;
     response = await Product.find();
   }
   res.render("shop/index", {
     title: "DreamWorld",
     response,
-    homePage:carouselShowcase,
-    noMessage:true,
+    homePage: carouselShowcase,
+    noMessage: true,
     matched: true
   });
 });
@@ -49,7 +49,7 @@ router.get("/search", async (req, res, next) => {
 router.post("/subscribe", (req, res, next) => {
   const output = `
         <hr>
-        <center><a href="https://ma9shoppingcart.herokuapp.com/"><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/Untitled-1.jpg?alt=media&token=242317b3-5147-4226-88fc-72aad455c0aa"></a></center>
+        <center><a href="https://dreamworldbpccs.herokuapp.com/"><img src="https://firebasestorage.googleapis.com/v0/b/mydocs-9999.appspot.com/o/Untitled-1.jpg?alt=media&token=242317b3-5147-4226-88fc-72aad455c0aa"></a></center>
         <hr>
     `;
 
@@ -59,22 +59,21 @@ router.post("/subscribe", (req, res, next) => {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "dreamworld.bpccs@gmail.com", // DreamWorld Email ID
-      pass: "LaW6rXvEguCHB2V" // DreamWorld Password
+      user: 'badboysecurities@gmail.com', // DreamWorld Email ID
+      pass: 'LaW6rXvEguCHB2V' // DreamWorld Password
     },
     tls: {
       rejectUnauthorized: false
     }
   });
-
+  let sender = 'badboysecurities@gmail.com';
   // send mail with defined transport object
-  let info = transporter.sendMail({
-    from: `dreamworld.bpccs@gmail.com`, // sender address
+  transporter.sendMail({
+    from: `"DreamWorld - A Hope Of Happiness" 👻 <${sender}>`,
     to: req.body.subEmail, // list of receivers
-    subject: `Congratulations, You are subscribed to DreamWorld Daily Offers`, // Subject line
+    subject: `Congratulations, ${req.body.subName} You are subscribed to DreamWorld Daily Offers`, // Subject line
     html: output // html body
   });
-
   res.redirect("/");
 });
 

@@ -1,40 +1,40 @@
 {{#if products}}
-    <div class="row">
-        <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
-            <ul class="list-group">
-                {{#each products}}
-                     <li class="list-group-item">
-                        <strong>{{ this.title }}</strong>
-                        <span class="badge badge-info">₹ {{this.price}}</span>
-                        <div class="float-right">
-                            <h5>
-                                <a href="/reduce/{{ this.item._id }}"><i class="fas fa-minus-square"></i></a>
-                                <i class="badge badge-primary">{{this.qty}}</i>
-                                <a href="/addByOne/{{ this.item._id }}"><i class="fas fa-plus-square"></i></a>
-                            </h5>                            
-                        </div>
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
+        <ul class="list-group">
+            {{#each products}}
+            <li class="list-group-item">
+                <strong>{{ this.title }}</strong>
+                <span class="badge badge-info">₹ {{this.price}}</span>
+                <div class="float-right">
+                    <h5>
+                        <a href="/reduce/{{ this.item._id }}"><i class="fas fa-minus-square"></i></a>
+                        <i class="badge badge-primary">{{this.qty}}</i>
+                        <a href="/addByOne/{{ this.item._id }}"><i class="fas fa-plus-square"></i></a>
+                    </h5>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
-            <strong>Total : {{ totalPrice }}</strong>
-        </div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
+        <strong>Total : {{ totalPrice }}</strong>
     </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
-            <a href="/checkout" class="btn btn-success">Checkout</a>
-        </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
+        <a href="/checkout" class="btn btn-success">Checkout</a>
     </div>
+</div>
 
 {{else}}
-    <div class="row">
-        <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
-            <h2>No Items in Cart</h2>
-        </div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 offset-md-3 offset-sm-3">
+        <h2>No Items in Cart</h2>
     </div>
+</div>
 {{/if}}
